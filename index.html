@@ -12,9 +12,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       height: 100vh;
       overflow: hidden;
+      padding-top: 20px; /* <-- esto sube todo suavemente */
     }
 
     .logo {
@@ -64,9 +64,8 @@
   <script>
     const dominoContainer = document.getElementById("domino-container");
     const dominoes = document.querySelectorAll(".domino");
-    const delayBetween = 150; // ms
+    const delayBetween = 150;
     const fallDuration = 600;
-
     let isFalling = false;
 
     function fallDomino(index) {
@@ -74,7 +73,6 @@
       const domino = dominoes[index];
       domino.style.transition = `transform ${fallDuration}ms ease-out`;
       domino.style.transform = "rotate(75deg)";
-
       setTimeout(() => {
         fallDomino(index + 1);
       }, delayBetween);
@@ -88,7 +86,7 @@
     }
 
     function triggerAnimation() {
-      if (isFalling) return; // evita múltiples disparos
+      if (isFalling) return;
       isFalling = true;
       fallDomino(0);
       setTimeout(() => {
@@ -97,10 +95,7 @@
       }, delayBetween * dominoes.length + 1000);
     }
 
-    // Interacción para desktop (hover)
     dominoContainer.addEventListener("mouseenter", triggerAnimation);
-
-    // Interacción para móvil (tap)
     dominoContainer.addEventListener("touchstart", triggerAnimation);
   </script>
 </body>
