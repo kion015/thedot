@@ -22,8 +22,10 @@
     }
 
     .dominos {
+      position: relative;
+      height: 100px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 40px;
       cursor: pointer;
     }
@@ -33,26 +35,46 @@
       height: 80px;
       background-color: #111;
       transform-origin: bottom center;
-      transition: transform 0.3s ease;
+      transform: rotate(0deg);
     }
 
-    .dominos.animate .domino:nth-child(1) { transition-delay: 0s; transform: rotate(60deg); }
-    .dominos.animate .domino:nth-child(2) { transition-delay: 0.1s; transform: rotate(60deg); }
-    .dominos.animate .domino:nth-child(3) { transition-delay: 0.2s; transform: rotate(60deg); }
-    .dominos.animate .domino:nth-child(4) { transition-delay: 0.3s; transform: rotate(60deg); }
-    .dominos.animate .domino:nth-child(5) { transition-delay: 0.4s; transform: rotate(60deg); }
-    .dominos.animate .domino:nth-child(6) { transition-delay: 0.5s; transform: rotate(60deg); }
+    .falling .domino:nth-child(1) {
+      animation: fall 0.4s ease forwards;
+    }
+
+    .falling .domino:nth-child(2) {
+      animation: fall 0.4s ease forwards;
+      animation-delay: 0.15s;
+    }
+
+    .falling .domino:nth-child(3) {
+      animation: fall 0.4s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .falling .domino:nth-child(4) {
+      animation: fall 0.4s ease forwards;
+      animation-delay: 0.45s;
+    }
+
+    .falling .domino:nth-child(5) {
+      animation: fall 0.4s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    .falling .domino:nth-child(6) {
+      animation: fall 0.4s ease forwards;
+      animation-delay: 0.75s;
+    }
+
+    @keyframes fall {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(75deg); }
+    }
 
     .coming-soon {
       font-size: 1.2rem;
       color: #333;
-      margin-top: 20px;
-    }
-
-    @media (hover: none) {
-      .dominos {
-        pointer-events: auto;
-      }
     }
   </style>
 </head>
@@ -74,10 +96,9 @@
     const dominos = document.getElementById('dominos');
 
     function triggerAnimation() {
-      dominos.classList.add('animate');
-      setTimeout(() => {
-        dominos.classList.remove('animate');
-      }, 2000);
+      dominos.classList.remove('falling');
+      void dominos.offsetWidth; // Reinicia la animación
+      dominos.classList.add('falling');
     }
 
     dominos.addEventListener('mouseover', triggerAnimation);
