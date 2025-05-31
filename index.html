@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>THEDot</title>
   <style>
     body {
-      margin: 0;
-      background: #efefef;
-      font-family: sans-serif;
+      background-color: #efefef;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
     }
 
     .logo {
-      width: 200px;
-      max-width: 80vw;
+      width: 260px;
+      max-width: 90vw;
       margin-bottom: 40px;
     }
 
-    .domino-container {
+    .dominos {
       display: flex;
-      gap: 12px;
-      margin: 20px 0;
+      gap: 8px;
+      margin-bottom: 40px;
       cursor: pointer;
     }
 
     .domino {
       width: 10px;
-      height: 60px;
-      background: black;
+      height: 80px;
+      background-color: #111;
       transform-origin: bottom center;
-      transform: rotate(0deg);
+      transition: transform 0.3s ease;
     }
+
+    .dominos.animate .domino:nth-child(1) { transition-delay: 0s; transform: rotate(60deg); }
+    .dominos.animate .domino:nth-child(2) { transition-delay: 0.1s; transform: rotate(60deg); }
+    .dominos.animate .domino:nth-child(3) { transition-delay: 0.2s; transform: rotate(60deg); }
+    .dominos.animate .domino:nth-child(4) { transition-delay: 0.3s; transform: rotate(60deg); }
+    .dominos.animate .domino:nth-child(5) { transition-delay: 0.4s; transform: rotate(60deg); }
+    .dominos.animate .domino:nth-child(6) { transition-delay: 0.5s; transform: rotate(60deg); }
 
     .coming-soon {
       font-size: 1.2rem;
-      margin-top: 40px;
-      color: #222;
-      letter-spacing: 2px;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    @media (hover: none) {
+      .dominos {
+        pointer-events: auto;
+      }
     }
   </style>
 </head>
 <body>
-  <img src="landing-mainlogoGRANDE.png" alt="THEDot Logo" class="logo"/>
+  <img src="landing-thedotLOGO.png" alt="THEDot Logo" class="logo">
 
-  <div class="domino-container" id="domino-container">
-    <div class="domino"></div>
+  <div class="dominos" id="dominos">
     <div class="domino"></div>
     <div class="domino"></div>
     <div class="domino"></div>
@@ -62,46 +71,17 @@
   <div class="coming-soon">coming soon</div>
 
   <script>
-    const dominoContainer = document.getElementById("domino-container");
-    const dominoes = document.querySelectorAll(".domino");
-    const delayBetween = 150; // ms
-    const fallDuration = 600;
-
-    let isFalling = false;
-
-    function fallDomino(index) {
-      if (index >= dominoes.length) return;
-      const domino = dominoes[index];
-      domino.style.transition = `transform ${fallDuration}ms ease-out`;
-      domino.style.transform = "rotate(75deg)";
-
-      setTimeout(() => {
-        fallDomino(index + 1);
-      }, delayBetween);
-    }
-
-    function resetDominoes() {
-      dominoes.forEach((domino) => {
-        domino.style.transition = `transform ${fallDuration}ms ease-in`;
-        domino.style.transform = "rotate(0deg)";
-      });
-    }
+    const dominos = document.getElementById('dominos');
 
     function triggerAnimation() {
-      if (isFalling) return; // evita múltiples disparos
-      isFalling = true;
-      fallDomino(0);
+      dominos.classList.add('animate');
       setTimeout(() => {
-        resetDominoes();
-        isFalling = false;
-      }, delayBetween * dominoes.length + 1000);
+        dominos.classList.remove('animate');
+      }, 2000);
     }
 
-    // Interacción para desktop (hover)
-    dominoContainer.addEventListener("mouseenter", triggerAnimation);
-
-    // Interacción para móvil (tap)
-    dominoContainer.addEventListener("touchstart", triggerAnimation);
+    dominos.addEventListener('mouseover', triggerAnimation);
+    dominos.addEventListener('touchstart', triggerAnimation);
   </script>
 </body>
 </html>
