@@ -1,26 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>THE DOT</title>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100;
-        background-color: #efefef;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-      }
-    </style>
-  </head>
-  <body>
-    <img src="landing-thedot.png" alt="THE DOT" />
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>THEDot</title>
+  <style>
+    body {
+      margin: 0;
+      background: #efefef;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .logo {
+      width: 200px;
+      max-width: 80vw;
+      margin-bottom: 40px;
+    }
+
+    .domino-container {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .domino {
+      width: 10px;
+      height: 60px;
+      background: black;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+    }
+
+    .coming-soon {
+      font-size: 1.2rem;
+      margin-top: 40px;
+      color: #222;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <img src="landing-thedotLOGO.png" alt="THEDot Logo" class="logo"/>
+
+  <div class="domino-container" id="domino-container">
+    <div class="domino"></div>
+    <div class="domino"></div>
+    <div class="domino"></div>
+    <div class="domino"></div>
+    <div class="domino"></div>
+    <div class="domino"></div>
+    <div class="domino"></div>
+  </div>
+
+  <div class="coming-soon">coming soon</div>
+
+  <script>
+    const dominoContainer = document.getElementById("domino-container");
+    const dominoes = document.querySelectorAll(".domino");
+    const delayBetween = 150; // ms
+    const fallDuration = 600;
+
+    let isFalling = false;
+
+    function fallDomino(index) {
+      if (index >= dominoes.length) return;
+      const domino = dominoes[index];
+      domino.style.transition = `transform ${fallDuration}ms ease-out`;
+      domino.style.transform = "rotate(75deg)";
+
+      setTimeout(() => {
+        fallDomino(index + 1);
+      }, delayBetween);
+    }
+
+    function resetDominoes() {
+      dominoes.forEach((domino) => {
+        domino.style.transition = `transform ${fallDuration}ms ease-in`;
+        domino.style.transform = "rotate(0deg)";
+      });
+    }
+
+    function triggerAnimation() {
+      if (isFalling) return; // evita múltiples disparos
+      isFalling = true;
+      fallDomino(0);
+      setTimeout(() => {
+        resetDominoes();
+        isFalling = false;
+      }, delayBetween * dominoes.length + 1000);
+    }
+
+    // Interacción para desktop (hover)
+    dominoContainer.addEventListener("mouseenter", triggerAnimation);
+
+    // Interacción para móvil (tap)
+    dominoContainer.addEventListener("touchstart", triggerAnimation);
+  </script>
+</body>
 </html>
