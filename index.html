@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>THEDot</title>
+<meta name="description" content="THEDot — timeless experiences. Coming soon." />
+
+<!-- Open Graph (cómo se ve el link al compartirlo) -->
+<meta property="og:title" content="THEDot" />
+<meta property="og:description" content="Timeless experiences. Coming soon." />
+<meta property="og:type" content="website" />
+
+<!-- Favicon: el punto de THEDot, en Night #141414 -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23141414'/></svg>" />
+
+<!-- Geologica (tipografía de marca, gratuita en Google Fonts).
+     Si no la querés usar, borrá estas dos líneas y el sitio cae a sans-serif. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --night: #141414;
+  --white: #efefef;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--night);
+  font-family: "Geologica", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+}
+
+.logo {
+  width: 260px;
+  max-width: 90vw;
+  margin-bottom: 40px;
+}
+
+.domino-container {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.domino {
+  width: 10px;
+  height: 60px;
+  background: var(--night);
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+}
+
+.coming-soon {
+  font-size: 1.2rem;
+  margin-top: 40px;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
+/* --- Lista de espera --- */
+.waitlist {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--night);
+  margin-top: 28px;
+}
+.waitlist input {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding: 8px 4px;
+  color: var(--night);
+  width: 210px;
+  outline: none;
+}
+.waitlist input::placeholder { color: #8a8a8a; }
+.waitlist button {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  padding: 8px 4px 8px 14px;
+  color: var(--night);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.waitlist button:hover { opacity: 0.6; }
+
+.form-msg {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-top: 12px;
+  min-height: 1.1em;
+  color: var(--night);
+}
+
+/* --- Redes sociales --- */
+.socials {
+  display: flex;
+  gap: 22px;
+  margin-top: 30px;
+}
+.socials a {
+  display: inline-flex;
+  color: var(--night);
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+.socials a:hover,
+.socials a:focus-visible { opacity: 1; }
+.socials svg { width: 22px; height: 22px; }
+
+@media (max-width: 768px) {
+  body { padding: 24px 18px; }
+  .logo { margin-bottom: 24px; }
+  .coming-soon { margin-top: 28px; }
+  .waitlist input { width: 160px; }
+}
+
+/* Respeta a quien tenga reducido el movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .domino { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<img src="landing-mainlogoGRANDE.png" alt="THEDot Logo" class="logo" />
+
+<div class="domino-container" id="domino-container" aria-hidden="true">
+  <div class="domino"></div>
+  <div class="domino"></div>
+  <div class="domino"></div>
+  <div class="domino"></div>
+  <div class="domino"></div>
+  <div class="domino"></div>
+  <div class="domino"></div>
+</div>
+
+<div class="coming-soon">coming soon</div>
+
+<!-- Lista de espera (se guarda en tu Google Sheet vía Apps Script). -->
+<form class="waitlist" id="waitlist">
+  <input type="email" name="email" placeholder="your email" autocomplete="email" required aria-label="your email" />
+  <button type="submit">notify me</button>
+</form>
+<div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
+
+<!-- Redes: poné tus URLs reales en cada href -->
+<nav class="socials" aria-label="Social links">
+  <a href="https://www.instagram.com/thedotexperiences" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  </a>
+  <a href="https://www.linkedin.com/company/the-dot-experiences-with-purpose-co/" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="3" />
+      <line x1="7" y1="10" x2="7" y2="17" />
+      <circle cx="7" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+      <path d="M11 17v-4a2.5 2.5 0 0 1 5 0v4" />
+      <line x1="11" y1="10" x2="11" y2="17" />
+    </svg>
+  </a>
+  <a href="mailto:experiences@thedot.co" aria-label="Email">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M3 6l9 7 9-7" />
+    </svg>
+  </a>
+</nav>
+
+<script>
+  /* ---------- Animación de fichas ---------- */
+  const dominoContainer = document.getElementById("domino-container");
+  const dominoes = document.querySelectorAll(".domino");
+  const delayBetween = 150;
+  const fallDuration = 600;
+  let isFalling = false;
+
+  function fallDomino(index) {
+    if (index >= dominoes.length) return;
+    const domino = dominoes[index];
+    domino.style.transition = `transform ${fallDuration}ms ease-out`;
+    domino.style.transform = "rotate(75deg)";
+    setTimeout(() => fallDomino(index + 1), delayBetween);
+  }
+
+  function resetDominoes() {
+    dominoes.forEach((domino) => {
+      domino.style.transition = `transform ${fallDuration}ms ease-in`;
+      domino.style.transform = "rotate(0deg)";
+    });
+  }
+
+  function triggerAnimation() {
+    if (isFalling) return;
+    isFalling = true;
+    fallDomino(0);
+    setTimeout(() => {
+      resetDominoes();
+      isFalling = false;
+    }, delayBetween * dominoes.length + 1000);
+  }
+
+  // Un solo disparador: en touch frenamos el "mouseenter fantasma" para que no se ejecute doble
+  dominoContainer.addEventListener("mouseenter", triggerAnimation);
+  dominoContainer.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    triggerAnimation();
+  }, { passive: false });
+
+  /* ---------- Lista de espera → Google Sheets ---------- */
+  // Pegá acá la URL que te da Google al "Deploy" del Apps Script (ver instrucciones).
+  const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbwYODY_Ux336JOwLtr2zhVbhiXRDnkExc-lAdmbYob8yc1lHjZ2B5RBiJzU5xWctHsg/exec";
+
+  const form = document.getElementById("waitlist");
+  const msg = document.getElementById("form-msg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    const valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    if (!valid) {
+      msg.textContent = "please enter a valid email";
+      return;
+    }
+    msg.textContent = "sending…";
+    try {
+      // 'no-cors' es necesario para postear a Apps Script desde el navegador.
+      // La respuesta queda "opaca": si no hubo error de red, lo damos por enviado.
+      await fetch(SHEET_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams({ email }),
+      });
+      form.reset();
+      form.style.display = "none";
+      msg.textContent = "you're on the list — we'll be in touch";
+    } catch (err) {
+      msg.textContent = "something went wrong, please try again";
+    }
+  });
+</script>
+
+</body>
+</html>
